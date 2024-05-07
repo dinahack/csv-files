@@ -1,0 +1,16 @@
+SELECT 
+    CASE 
+        WHEN CHARINDEX(' ', FullName) > 0 THEN LEFT(FullName, CHARINDEX(' ', FullName) - 1) -- First Name
+        ELSE FullName 
+    END AS FirstName,
+    CASE 
+        WHEN CHARINDEX(' ', FullName) > 0 THEN SUBSTRING(FullName, CHARINDEX(' ', FullName) + 1, 
+            CHARINDEX(' ', FullName, CHARINDEX(' ', FullName) + 1) - CHARINDEX(' ', FullName) - 1) -- Middle Name
+        ELSE NULL
+    END AS MiddleName,
+    CASE 
+        WHEN CHARINDEX(' ', FullName) > 0 THEN RIGHT(FullName, LEN(FullName) - CHARINDEX(' ', FullName, 
+            CHARINDEX(' ', FullName) + 1)) -- Last Name
+        ELSE NULL 
+    END AS LastName
+FROM YourTable;
